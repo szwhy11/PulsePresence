@@ -8,12 +8,12 @@
 
 Яндекс Музыка, Spotify, YouTube Music, VK Музыка, SoundCloud, Telegram, Браузер (Chrome, Opera, Edge), AIMP, foobar2000 — всё, что играет в Windows.
 
-[![Версия](https://img.shields.io/github/v/release/callmainplz/PulsePresence?style=for-the-badge&logo=tag&color=5865F2&labelColor=18191c)](https://github.com/callmainplz/PulsePresence/releases/latest)
-[![Скачивания](https://img.shields.io/github/downloads/callmainplz/PulsePresence/total?style=for-the-badge&logo=windows&color=00F5FF&labelColor=18191c)](https://github.com/callmainplz/PulsePresence/releases)
-[![Звёзды](https://img.shields.io/github/stars/callmainplz/PulsePresence?style=for-the-badge&logo=github&color=2D91FA&labelColor=18191c)](https://github.com/callmainplz/PulsePresence/stargazers)
+[![Версия](https://img.shields.io/github/v/release/szwhy11/PulsePresence?style=for-the-badge&logo=tag&color=5865F2&labelColor=18191c)](https://github.com/szwhy11/PulsePresence/releases/latest)
+[![Скачивания](https://img.shields.io/github/downloads/szwhy11/PulsePresence/total?style=for-the-badge&logo=windows&color=00F5FF&labelColor=18191c)](https://github.com/szwhy11/PulsePresence/releases)
+[![Звёзды](https://img.shields.io/github/stars/szwhy11/PulsePresence?style=for-the-badge&logo=github&color=2D91FA&labelColor=18191c)](https://github.com/szwhy11/PulsePresence/stargazers)
 [![Telegram Поддержка](https://img.shields.io/badge/Telegram-Поддержка-26A5E4?style=for-the-badge&logo=telegram&logoColor=white&labelColor=18191c)](https://t.me/martdoma)
-[![Платформа](https://img.shields.io/badge/Платформа-Windows%2010%20%7C%2011-7289da?style=for-the-badge&logo=windows11&logoColor=white&labelColor=18191c)](https://github.com/callmainplz/PulsePresence)
-[![Лицензия](https://img.shields.io/github/license/callmainplz/PulsePresence?style=for-the-badge&color=8B5CF6&labelColor=18191c)](LICENSE)
+[![Платформа](https://img.shields.io/badge/Платформа-Windows%2010%20%7C%2011-7289da?style=for-the-badge&logo=windows11&logoColor=white&labelColor=18191c)](https://github.com/szwhy11/PulsePresence)
+[![Лицензия](https://img.shields.io/github/license/szwhy11/PulsePresence?style=for-the-badge&color=8B5CF6&labelColor=18191c)](LICENSE)
 
 <br/>
 
@@ -21,7 +21,7 @@
 
 <br/>
 
-[**⬇ Скачать PulsePresence.exe (v2.0.0)**](https://github.com/callmainplz/PulsePresence/releases/latest/download/PulsePresence.exe)
+[**⬇ Скачать PulsePresence.exe (v2.0.0)**](https://github.com/szwhy11/PulsePresence/releases/latest/download/PulsePresence.exe)
 
 <br/>
 
@@ -53,13 +53,13 @@
 
 Если нашли баг, есть идея или вопрос:
 * Telegram: **t.me/martdoma** (`@martdoma`)
-* GitHub Issues: [callmainplz/PulsePresence/issues](https://github.com/callmainplz/PulsePresence/issues)
+* GitHub Issues: [szwhy11/PulsePresence/issues](https://github.com/szwhy11/PulsePresence/issues)
 
 ---
 
 ## 🚀 Быстрый старт
 
-1. Скачайте **`PulsePresence.exe`** из раздела [Releases](https://github.com/callmainplz/PulsePresence/releases/latest).
+1. Скачайте **`PulsePresence.exe`** из раздела [Releases](https://github.com/szwhy11/PulsePresence/releases/latest).
 2. Запустите файл. Иконка эквалайзера появится в системном трее рядом с часами.
 3. В Discord проверьте: **Настройки пользователя → Конфиденциальность активности → «Отображать текущую активность в статусе»** должно быть включено.
 4. Включите любой трек в Яндекс Музыке, браузере или любом другом плеере!

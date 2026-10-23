@@ -8,12 +8,12 @@
 
 Yandex Music, Spotify, YouTube Music, VK, SoundCloud, Telegram, Chrome, Opera, AIMP, foobar2000 — whatever plays on Windows.
 
-[![Release](https://img.shields.io/github/v/release/callmainplz/PulsePresence?style=for-the-badge&logo=tag&color=5865F2&labelColor=18191c)](https://github.com/callmainplz/PulsePresence/releases/latest)
-[![Downloads](https://img.shields.io/github/downloads/callmainplz/PulsePresence/total?style=for-the-badge&logo=windows&color=00F5FF&labelColor=18191c)](https://github.com/callmainplz/PulsePresence/releases)
-[![Stars](https://img.shields.io/github/stars/callmainplz/PulsePresence?style=for-the-badge&logo=github&color=2D91FA&labelColor=18191c)](https://github.com/callmainplz/PulsePresence/stargazers)
+[![Release](https://img.shields.io/github/v/release/szwhy11/PulsePresence?style=for-the-badge&logo=tag&color=5865F2&labelColor=18191c)](https://github.com/szwhy11/PulsePresence/releases/latest)
+[![Downloads](https://img.shields.io/github/downloads/szwhy11/PulsePresence/total?style=for-the-badge&logo=windows&color=00F5FF&labelColor=18191c)](https://github.com/szwhy11/PulsePresence/releases)
+[![Stars](https://img.shields.io/github/stars/szwhy11/PulsePresence?style=for-the-badge&logo=github&color=2D91FA&labelColor=18191c)](https://github.com/szwhy11/PulsePresence/stargazers)
 [![Telegram Support](https://img.shields.io/badge/Telegram-Поддержка-26A5E4?style=for-the-badge&logo=telegram&logoColor=white&labelColor=18191c)](https://t.me/martdoma)
-[![Platform](https://img.shields.io/badge/Platform-Windows%2010%20%7C%2011-7289da?style=for-the-badge&logo=windows11&logoColor=white&labelColor=18191c)](https://github.com/callmainplz/PulsePresence)
-[![License](https://img.shields.io/github/license/callmainplz/PulsePresence?style=for-the-badge&color=8B5CF6&labelColor=18191c)](LICENSE)
+[![Platform](https://img.shields.io/badge/Platform-Windows%2010%20%7C%2011-7289da?style=for-the-badge&logo=windows11&logoColor=white&labelColor=18191c)](https://github.com/szwhy11/PulsePresence)
+[![License](https://img.shields.io/github/license/szwhy11/PulsePresence?style=for-the-badge&color=8B5CF6&labelColor=18191c)](LICENSE)
 
 <br/>
 
@@ -21,7 +21,7 @@ Yandex Music, Spotify, YouTube Music, VK, SoundCloud, Telegram, Chrome, Opera, A
 
 <br/>
 
-[**⬇ Download PulsePresence.exe (v2.0.0)**](https://github.com/callmainplz/PulsePresence/releases/latest/download/PulsePresence.exe)
+[**⬇ Download PulsePresence.exe (v2.0.0)**](https://github.com/szwhy11/PulsePresence/releases/latest/download/PulsePresence.exe)
 
 <br/>
 
@@ -53,13 +53,13 @@ Yandex Music, Spotify, YouTube Music, VK, SoundCloud, Telegram, Chrome, Opera, A
 
 Found a bug or have a feature suggestion?
 * Telegram: **t.me/martdoma** (`@martdoma`)
-* GitHub Issues: [callmainplz/PulsePresence/issues](https://github.com/callmainplz/PulsePresence/issues)
+* GitHub Issues: [szwhy11/PulsePresence/issues](https://github.com/szwhy11/PulsePresence/issues)
 
 ---
 
 ## 🚀 Quick Start
 
-1. Download **`PulsePresence.exe`** from [Releases](https://github.com/callmainplz/PulsePresence/releases/latest).
+1. Download **`PulsePresence.exe`** from [Releases](https://github.com/szwhy11/PulsePresence/releases/latest).
 2. Launch it. The neon pulse equalizer icon will appear in your system tray.
 3. Make sure Discord has **User Settings → Activity Privacy → «Share your detected activities with others»** enabled.
 4. Play any track in your favorite music player or browser!

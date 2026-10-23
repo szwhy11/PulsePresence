@@ -14,7 +14,7 @@ namespace Nowcast
     static class Program
     {
         public const string Version = "2.0.0";
-        public const string Repo = "callmainplz/PulsePresence";
+        public const string Repo = "szwhy11/PulsePresence";
 
         [STAThread]
         static void Main(string[] args)
