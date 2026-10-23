@@ -1,0 +1,9 @@
+bin/
+obj/
+*.user
+*.suo
+.vs/
+scratch/
+*.log
+PulsePresence.log
+discord-nowcast.exe

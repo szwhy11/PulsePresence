@@ -1,0 +1,23 @@
+name: Player not recognized / Плеер не распознаётся
+description: An app plays but is missing or has the wrong name / Приложение играет, но его нет или имя неправильное
+labels: [player]
+body:
+  - type: input
+    id: app
+    attributes:
+      label: App / Приложение
+      placeholder: Yandex Music, AIMP, …
+    validations:
+      required: true
+  - type: textarea
+    id: check
+    attributes:
+      label: What Windows sees while it plays / «Что видит Windows», пока играет
+      description: Tray menu → What Windows sees; a click on a line copies its app ID, paste it here. / Меню у часов → «Что видит Windows»; нажатие на строку копирует ID приложения, вставьте его сюда.
+    validations:
+      required: true
+  - type: input
+    id: name
+    attributes:
+      label: Name it should have / Каким должно быть имя
+      placeholder: Яндекс Музыка

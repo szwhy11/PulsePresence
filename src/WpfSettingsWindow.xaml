@@ -1,0 +1,524 @@
+<Window x:Class="Nowcast.WpfSettingsWindow"
+        x:ClassModifier="internal"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="PulsePresence — Настройки активности"
+        Icon="/PulsePresence;component/assets/icon.ico"
+        Width="740"
+        Height="680"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize"
+        Background="#08090D"
+        TextOptions.TextFormattingMode="Display"
+        TextOptions.TextRenderingMode="ClearType"
+        TextOptions.TextHintingMode="Fixed"
+        RenderOptions.ClearTypeHint="Enabled"
+        UseLayoutRounding="True"
+        SnapsToDevicePixels="True">
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/PulsePresence;component/Themes/Theme.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <Grid Background="{StaticResource WindowAmbientBgBrush}">
+        <Grid Margin="24,20,24,22"
+              TextElement.FontFamily="{StaticResource DefaultFontFamily}"
+              TextElement.Foreground="{StaticResource TextPrimaryBrush}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <!-- ==================== ROW 0: APP HEADER ==================== -->
+            <Grid Grid.Row="0" Margin="0,0,0,16">
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                    <Image Source="/PulsePresence;component/assets/icon.png"
+                           Width="22"
+                           Height="22"
+                           Margin="0,0,10,0"
+                           VerticalAlignment="Center"
+                           RenderOptions.BitmapScalingMode="HighQuality" />
+
+                    <TextBlock Text="PulsePresence"
+                               FontSize="18"
+                               FontWeight="Bold"
+                               Foreground="{StaticResource TextPrimaryBrush}"
+                               VerticalAlignment="Center" />
+
+                    <!-- Liquid Glass Version Badge -->
+                    <Border Background="{StaticResource GlassControlBgBrush}"
+                            BorderBrush="{StaticResource GlassControlBorderBrush}"
+                            BorderThickness="1"
+                            CornerRadius="6"
+                            Margin="10,0,0,0"
+                            Padding="7,3,7,3"
+                            VerticalAlignment="Center">
+                        <TextBlock x:Name="txtVersion"
+                                   Text="v2.0.0"
+                                   FontSize="11"
+                                   FontWeight="SemiBold"
+                                   Foreground="{StaticResource BlurpleLightBrush}" />
+                    </Border>
+
+                    <TextBlock Text="Discord Rich Presence"
+                               FontSize="11"
+                               Foreground="{StaticResource TextSecondaryBrush}"
+                               Margin="12,2,0,0"
+                               VerticalAlignment="Center" />
+                </StackPanel>
+
+                <!-- Discord Live Status Pill (Frosted glass with glowing vector status dot) -->
+                <Border HorizontalAlignment="Right"
+                        Background="{StaticResource GlassCardBgBrush}"
+                        BorderBrush="{StaticResource GlassCardBorderBrush}"
+                        BorderThickness="1"
+                        CornerRadius="12"
+                        Padding="10,5,12,5"
+                        VerticalAlignment="Center">
+                    <Border.Effect>
+                        <DropShadowEffect BlurRadius="12" ShadowDepth="2" Direction="270" Color="#000000" Opacity="0.4" />
+                    </Border.Effect>
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                        <Ellipse x:Name="dotDiscordStatus"
+                                 Width="7"
+                                 Height="7"
+                                 Fill="{StaticResource OnlineGreenBrush}"
+                                 Margin="0,0,7,0"
+                                 VerticalAlignment="Center">
+                            <Ellipse.Effect>
+                                <DropShadowEffect BlurRadius="6" ShadowDepth="0" Color="{StaticResource OnlineGreenColor}" Opacity="0.8" />
+                            </Ellipse.Effect>
+                        </Ellipse>
+                        <TextBlock x:Name="txtDiscordStatus"
+                                   Text="Discord активен"
+                                   FontSize="11"
+                                   FontWeight="SemiBold"
+                                   Foreground="{StaticResource OnlineGreenBrush}"
+                                   VerticalAlignment="Center" />
+                    </StackPanel>
+                </Border>
+            </Grid>
+
+            <!-- ==================== ROW 1: LIVE DISCORD RICH PRESENCE (HERO LIQUID GLASS) ==================== -->
+            <Border Grid.Row="1"
+                    Background="{StaticResource GlassInnerBgBrush}"
+                    BorderBrush="{StaticResource GlassInnerBorderBrush}"
+                    BorderThickness="1"
+                    CornerRadius="14"
+                    Padding="16,14,16,15"
+                    Margin="0,0,0,16">
+                <Border.Effect>
+                    <DropShadowEffect BlurRadius="26" ShadowDepth="6" Direction="270" Color="#000000" Opacity="0.55" />
+                </Border.Effect>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <!-- Top Specular Refraction Highlight -->
+                    <Border Grid.Row="0"
+                            Height="1"
+                            VerticalAlignment="Top"
+                            Background="{StaticResource GlassInnerHighlightBrush}"
+                            CornerRadius="13,13,0,0"
+                            Margin="0,-14,0,0"
+                            Opacity="0.8" />
+
+                    <!-- Activity Header with Online Accent -->
+                    <TextBlock x:Name="txtPreviewHeader"
+                               Grid.Row="0"
+                               Text="СЛУШАЕТ YANDEX MUSIC"
+                               FontSize="10"
+                               FontWeight="Bold"
+                               Foreground="{StaticResource OnlineGreenBrush}"
+                               Margin="0,0,0,10" />
+
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="76" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <!-- Album Cover Art (76 x 76) with Glass Rim -->
+                        <Border Grid.Column="0"
+                                Width="76"
+                                Height="76"
+                                CornerRadius="10"
+                                ClipToBounds="True"
+                                Background="{StaticResource GlassControlBgBrush}"
+                                BorderBrush="{StaticResource GlassCardBorderBrush}"
+                                BorderThickness="1">
+                            <Border.Effect>
+                                <DropShadowEffect BlurRadius="12" ShadowDepth="3" Direction="270" Color="#000000" Opacity="0.4" />
+                            </Border.Effect>
+                            <Grid>
+                                <!-- Clean Vector Music SVG Placeholder (No unicode emojis) -->
+                                <Path Data="{StaticResource IconMusicGeo}"
+                                      Stroke="{StaticResource TextMutedBrush}"
+                                      StrokeThickness="1.8"
+                                      StrokeStartLineCap="Round"
+                                      StrokeEndLineCap="Round"
+                                      Fill="{x:Null}"
+                                      Width="30"
+                                      Height="30"
+                                      Stretch="Uniform"
+                                      HorizontalAlignment="Center"
+                                      VerticalAlignment="Center" />
+                                <Image x:Name="imgPreviewCover"
+                                       Stretch="UniformToFill"
+                                       RenderOptions.BitmapScalingMode="HighQuality" />
+                            </Grid>
+                        </Border>
+
+                        <!-- Track Details & Timeline -->
+                        <StackPanel Grid.Column="1" Margin="16,0,0,0" VerticalAlignment="Center">
+                            <TextBlock x:Name="txtPreviewTitle"
+                                       Text="На игле"
+                                       FontSize="15"
+                                       FontWeight="Bold"
+                                       Foreground="{StaticResource TextPrimaryBrush}"
+                                       TextTrimming="CharacterEllipsis" />
+
+                            <TextBlock x:Name="txtPreviewArtist"
+                                       Text="Падаем"
+                                       FontSize="12"
+                                       Foreground="{StaticResource TextSecondaryBrush}"
+                                       Margin="0,3,0,9"
+                                       TextTrimming="CharacterEllipsis" />
+
+                            <!-- Timeline Progress Bar -->
+                            <Grid Margin="0,0,0,9">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+
+                                <TextBlock x:Name="txtPreviewTimeCurrent"
+                                           Grid.Column="0"
+                                           Text="00:24"
+                                           FontSize="10"
+                                           Foreground="{StaticResource TextSecondaryBrush}"
+                                           VerticalAlignment="Center" />
+
+                                <Border Grid.Column="1"
+                                        Height="4"
+                                        Background="{StaticResource GlassControlBorderBrush}"
+                                        CornerRadius="2"
+                                        Margin="10,0,10,0"
+                                        VerticalAlignment="Center">
+                                    <Border x:Name="borderProgressFill"
+                                            HorizontalAlignment="Left"
+                                            Width="85"
+                                            Height="4"
+                                            Background="{StaticResource GlassProgressBrush}"
+                                            CornerRadius="2">
+                                        <Border.Effect>
+                                            <DropShadowEffect BlurRadius="6" ShadowDepth="0" Color="{StaticResource BlurpleColor}" Opacity="0.5" />
+                                        </Border.Effect>
+                                    </Border>
+                                </Border>
+
+                                <TextBlock x:Name="txtPreviewTimeEnd"
+                                           Grid.Column="2"
+                                           Text="02:13"
+                                           FontSize="10"
+                                           Foreground="{StaticResource TextSecondaryBrush}"
+                                           VerticalAlignment="Center" />
+                            </Grid>
+
+                            <!-- Discord RPC Button Mockup with Vector Play Icon -->
+                            <Border x:Name="borderPreviewButton"
+                                    Background="{StaticResource GlassControlBgBrush}"
+                                    BorderBrush="{StaticResource GlassControlBorderBrush}"
+                                    BorderThickness="1"
+                                    CornerRadius="7"
+                                    Height="28"
+                                    Padding="12,0,14,0"
+                                    HorizontalAlignment="Left">
+                                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                    <!-- Vector Play Triangle SVG (No text emoji) -->
+                                    <Path Data="{StaticResource IconPlayGeo}"
+                                          Fill="{StaticResource TextPrimaryBrush}"
+                                          Width="8"
+                                          Height="8"
+                                          Stretch="Uniform"
+                                          Margin="0,0,8,0"
+                                          VerticalAlignment="Center" />
+                                    <TextBlock x:Name="txtPreviewButton"
+                                               Text="Слушать на Яндекс Музыка"
+                                               FontSize="11"
+                                               FontWeight="SemiBold"
+                                               Foreground="{StaticResource TextPrimaryBrush}"
+                                               VerticalAlignment="Center" />
+                                </StackPanel>
+                            </Border>
+                        </StackPanel>
+                    </Grid>
+                </Grid>
+            </Border>
+
+            <!-- ==================== ROW 2: TWO GLASS COLUMNS ==================== -->
+            <Grid Grid.Row="2" Margin="0,0,0,16">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <!-- LEFT GLASS CARD: Status & RPC Settings -->
+                <Border Grid.Column="0"
+                        Background="{StaticResource GlassCardBgBrush}"
+                        BorderBrush="{StaticResource GlassCardBorderBrush}"
+                        BorderThickness="1"
+                        CornerRadius="{StaticResource CardCornerRadius}"
+                        Padding="16,14,16,16"
+                        Margin="0,0,8,0">
+                    <Border.Effect>
+                        <DropShadowEffect BlurRadius="20" ShadowDepth="4" Direction="270" Color="#000000" Opacity="0.4" />
+                    </Border.Effect>
+                    <Grid>
+                        <!-- Top Specular Refraction Highlight -->
+                        <Border Height="1"
+                                VerticalAlignment="Top"
+                                Background="{StaticResource GlassInnerHighlightBrush}"
+                                CornerRadius="13,13,0,0"
+                                Margin="0,-14,0,0"
+                                Opacity="0.6" />
+
+                        <StackPanel>
+                            <!-- Section Title with Vector Sliders SVG Icon -->
+                            <StackPanel Orientation="Horizontal" Margin="0,0,0,12">
+                                <Path Data="{StaticResource IconSlidersGeo}"
+                                      Stroke="{StaticResource BlurpleLightBrush}"
+                                      StrokeThickness="1.75"
+                                      StrokeStartLineCap="Round"
+                                      StrokeEndLineCap="Round"
+                                      Width="14"
+                                      Height="14"
+                                      Stretch="Uniform"
+                                      Margin="0,0,8,0"
+                                      VerticalAlignment="Center" />
+                                <TextBlock Text="Параметры статуса"
+                                           FontSize="13"
+                                           FontWeight="Bold"
+                                           Foreground="{StaticResource TextPrimaryBrush}"
+                                           VerticalAlignment="Center" />
+                            </StackPanel>
+
+                            <TextBlock Text="Тип активности:"
+                                       FontSize="11"
+                                       Foreground="{StaticResource TextSecondaryBrush}"
+                                       Margin="0,0,0,5" />
+                            <ComboBox x:Name="cmbActivityType"
+                                      Style="{StaticResource ModernComboBoxStyle}"
+                                      Margin="0,0,0,10" />
+
+                            <TextBlock Text="В списке участников:"
+                                       FontSize="11"
+                                       Foreground="{StaticResource TextSecondaryBrush}"
+                                       Margin="0,0,0,5" />
+                            <ComboBox x:Name="cmbInList"
+                                      Style="{StaticResource ModernComboBoxStyle}"
+                                      Margin="0,0,0,12" />
+
+                            <!-- Glass Divider Line -->
+                            <Border Height="1" Background="{StaticResource GlassDividerBrush}" Margin="0,2,0,10" />
+
+                            <CheckBox x:Name="chkCovers"
+                                      Content="Обложка трека в статусе"
+                                      Style="{StaticResource ModernToggleStyle}" />
+
+                            <CheckBox x:Name="chkUploadCovers"
+                                      Content="Загрузка обложек (Catbox Cloud)"
+                                      Style="{StaticResource ModernToggleStyle}" />
+
+                            <CheckBox x:Name="chkButtons"
+                                      Content="Кнопка «Слушать на ...»"
+                                      Style="{StaticResource ModernToggleStyle}" />
+
+                            <CheckBox x:Name="chkShowPaused"
+                                      Content="Не убирать статус на паузе"
+                                      Style="{StaticResource ModernToggleStyle}" />
+                        </StackPanel>
+                    </Grid>
+                </Border>
+
+                <!-- RIGHT GLASS CARD: Players & System Settings -->
+                <Border Grid.Column="1"
+                        Background="{StaticResource GlassCardBgBrush}"
+                        BorderBrush="{StaticResource GlassCardBorderBrush}"
+                        BorderThickness="1"
+                        CornerRadius="{StaticResource CardCornerRadius}"
+                        Padding="16,14,16,16"
+                        Margin="8,0,0,0">
+                    <Border.Effect>
+                        <DropShadowEffect BlurRadius="20" ShadowDepth="4" Direction="270" Color="#000000" Opacity="0.4" />
+                    </Border.Effect>
+                    <Grid>
+                        <!-- Top Specular Refraction Highlight -->
+                        <Border Height="1"
+                                VerticalAlignment="Top"
+                                Background="{StaticResource GlassInnerHighlightBrush}"
+                                CornerRadius="13,13,0,0"
+                                Margin="0,-14,0,0"
+                                Opacity="0.6" />
+
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+
+                            <!-- Section Title with Vector Layers SVG Icon -->
+                            <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,10">
+                                <Path Data="{StaticResource IconLayersGeo}"
+                                      Stroke="{StaticResource BlurpleLightBrush}"
+                                      StrokeThickness="1.75"
+                                      StrokeStartLineCap="Round"
+                                      StrokeEndLineCap="Round"
+                                      StrokeLineJoin="Round"
+                                      Width="14"
+                                      Height="14"
+                                      Stretch="Uniform"
+                                      Margin="0,0,8,0"
+                                      VerticalAlignment="Center" />
+                                <TextBlock Text="Плееры и источники"
+                                           FontSize="13"
+                                           FontWeight="Bold"
+                                           Foreground="{StaticResource TextPrimaryBrush}"
+                                           VerticalAlignment="Center" />
+                            </StackPanel>
+
+                            <!-- Sources Scrollable Container -->
+                            <ScrollViewer Grid.Row="1"
+                                          MaxHeight="110"
+                                          VerticalScrollBarVisibility="Auto"
+                                          HorizontalScrollBarVisibility="Disabled"
+                                          Margin="0,0,0,12">
+                                <StackPanel x:Name="panelSources">
+                                    <!-- Populated in code-behind with ModernToggle CheckBoxes -->
+                                </StackPanel>
+                            </ScrollViewer>
+
+                            <!-- System Section -->
+                            <StackPanel Grid.Row="3" VerticalAlignment="Bottom">
+                                <Border Height="1" Background="{StaticResource GlassDividerBrush}" Margin="0,0,0,12" />
+
+                                <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                                    <Path Data="{StaticResource IconGearGeo}"
+                                          Stroke="{StaticResource BlurpleLightBrush}"
+                                          StrokeThickness="1.75"
+                                          StrokeStartLineCap="Round"
+                                          StrokeEndLineCap="Round"
+                                          StrokeLineJoin="Round"
+                                          Width="14"
+                                          Height="14"
+                                          Stretch="Uniform"
+                                          Margin="0,0,8,0"
+                                          VerticalAlignment="Center" />
+                                    <TextBlock Text="Запуск и система"
+                                               FontSize="13"
+                                               FontWeight="Bold"
+                                               Foreground="{StaticResource TextPrimaryBrush}"
+                                               VerticalAlignment="Center" />
+                                </StackPanel>
+
+                                <CheckBox x:Name="chkAutostart"
+                                          Content="Запуск вместе с Windows"
+                                          Style="{StaticResource ModernToggleStyle}" />
+
+                                <CheckBox x:Name="chkUpdates"
+                                          Content="Проверять обновления"
+                                          Style="{StaticResource ModernToggleStyle}" />
+
+                                <!-- Create Shortcut Glass Button with Vector SVG -->
+                                <Button x:Name="btnDesktopShortcut"
+                                        Style="{StaticResource SecondaryButtonStyle}"
+                                        Height="34"
+                                        Margin="0,8,0,0">
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                        <Path Data="{StaticResource IconShortcutGeo}"
+                                              Stroke="{StaticResource TextSecondaryBrush}"
+                                              StrokeThickness="1.75"
+                                              StrokeStartLineCap="Round"
+                                              StrokeEndLineCap="Round"
+                                              Width="14"
+                                              Height="14"
+                                              Stretch="Uniform"
+                                              Margin="0,0,8,0"
+                                              VerticalAlignment="Center" />
+                                        <TextBlock Text="Создать ярлык на рабочем столе"
+                                                   VerticalAlignment="Center" />
+                                    </StackPanel>
+                                </Button>
+                            </StackPanel>
+                        </Grid>
+                    </Grid>
+                </Border>
+            </Grid>
+
+            <!-- ==================== ROW 3: FOOTER BAR ==================== -->
+            <Grid Grid.Row="3">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                    <!-- Log Button with Vector Document SVG -->
+                    <Button x:Name="btnLog"
+                            Style="{StaticResource SecondaryButtonStyle}"
+                            Height="36"
+                            Padding="14,0,14,0"
+                            Margin="0,0,10,0">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <Path Data="{StaticResource IconFileGeo}"
+                                  Stroke="{StaticResource TextSecondaryBrush}"
+                                  StrokeThickness="1.75"
+                                  StrokeStartLineCap="Round"
+                                  StrokeEndLineCap="Round"
+                                  Width="13"
+                                  Height="13"
+                                  Stretch="Uniform"
+                                  Margin="0,0,7,0"
+                                  VerticalAlignment="Center" />
+                            <TextBlock Text="Лог работы" VerticalAlignment="Center" />
+                        </StackPanel>
+                    </Button>
+
+                    <!-- Config Button with Vector Code SVG -->
+                    <Button x:Name="btnConfig"
+                            Style="{StaticResource SecondaryButtonStyle}"
+                            Height="36"
+                            Padding="14,0,14,0">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <Path Data="{StaticResource IconCodeGeo}"
+                                  Stroke="{StaticResource TextSecondaryBrush}"
+                                  StrokeThickness="1.75"
+                                  StrokeStartLineCap="Round"
+                                  StrokeEndLineCap="Round"
+                                  Width="14"
+                                  Height="14"
+                                  Stretch="Uniform"
+                                  Margin="0,0,7,0"
+                                  VerticalAlignment="Center" />
+                            <TextBlock Text="config.json" VerticalAlignment="Center" />
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
+
+                <!-- Close Glass Button -->
+                <Button x:Name="btnClose"
+                        Content="Закрыть"
+                        Style="{StaticResource PrimaryButtonStyle}"
+                        Width="120"
+                        Height="36"
+                        HorizontalAlignment="Right" />
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>

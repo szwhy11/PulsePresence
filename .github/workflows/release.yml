@@ -1,0 +1,62 @@
+# Builds discord-nowcast.exe and publishes a GitHub release for the version
+# in src/Program.cs, with its notes taken from CHANGELOG.md, whenever main
+# gets a version that has none yet.
+name: Release
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - src/**
+      - assets/**
+      - Themes/**
+      - PulsePresence.csproj
+      - build.ps1
+      - CHANGELOG.md
+      - .github/workflows/release.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: windows-latest
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Find the version
+        id: version
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          version=$(grep -oP 'const string Version = "\K[^"]+' src/Program.cs)
+          [ -n "$version" ] || { echo "no Version in src/Program.cs"; exit 1; }
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+          if gh release view "v$version" > /dev/null 2>&1; then
+            echo "v$version is already released"
+            echo "exists=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Build
+        if: steps.version.outputs.exists != 'true'
+        shell: pwsh
+        run: powershell -NoProfile -ExecutionPolicy Bypass -File build.ps1
+
+      - name: Release
+        if: steps.version.outputs.exists != 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          VERSION: ${{ steps.version.outputs.version }}
+        run: |
+          awk -v v="$VERSION" '
+            { sub(/\r$/, "") }
+            $0 == "## " v { found = 1; next }
+            found && /^## / { exit }
+            found { print }
+          ' CHANGELOG.md | sed '/./,$!d' > notes.md
+          [ -s notes.md ] || echo "Version $VERSION" > notes.md
+          gh release create "v$VERSION" PulsePresence.exe --target "$GITHUB_SHA" --title "PulsePresence $VERSION" --notes-file notes.md
