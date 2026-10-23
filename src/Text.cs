@@ -15,11 +15,11 @@ namespace Nowcast
         }
 
         public static readonly string AlreadyRunning = T(
-            "PulsePresence уже работает: его значок у часов, в правом нижнем углу экрана.",
-            "PulsePresence is already running: its icon is by the clock, at the bottom right of the screen.");
+            "PulsePresence уже работает: его значок находится в трее (стрелка ^ в правом нижнем углу экрана у часов, нажмите на неё чтобы развернуть значки).",
+            "PulsePresence is already running: its icon is in the tray (arrow ^ in the bottom right corner of the screen by the clock, click it to expand).");
         public static readonly string Running = T(
-            "PulsePresence работает. Значок находится у часов: нажмите на него для меню.",
-            "PulsePresence is running. Its icon lives by the clock: click it for the menu.");
+            "Программа запущена и работает в трее (стрелка ^ в правом нижнем углу экрана у часов, нажмите на неё чтобы развернуть значки).\n\nНажмите на значок PulsePresence для открытия настроек.",
+            "PulsePresence is running in the system tray (arrow ^ in the bottom right corner of the screen by the clock, click it to expand icons).\n\nClick the PulsePresence icon to open settings.");
         public static readonly string Updated = T("Обновлено до версии {0}.", "Updated to version {0}.");
 
         public static readonly string NothingPlaying = T("Ничего не играет", "Nothing is playing");

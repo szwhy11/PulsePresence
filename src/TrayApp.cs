@@ -32,7 +32,7 @@ namespace Nowcast
         Release release;
         WpfSettingsWindow settingsWindow;
 
-        public TrayApp(bool isUpdate)
+        public TrayApp(bool isUpdate, bool isAutostart = false)
         {
             ui.CreateControl();
 
@@ -100,9 +100,16 @@ namespace Nowcast
             };
 
             Startup.Refresh();
-            if (isUpdate) icon.ShowBalloonTip(5000, Text.AppName, string.Format(Text.Updated, Program.Version), ToolTipIcon.Info);
-
             engine.Start();
+
+            if (isUpdate)
+            {
+                icon.ShowBalloonTip(5000, Text.AppName, string.Format(Text.Updated, Program.Version), ToolTipIcon.Info);
+            }
+            else if (!isAutostart)
+            {
+                MessageBox.Show(Text.Running, Text.AppName, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
 
             // First look ten seconds in, then every six hours.
             updateTimer.Tick += delegate { CheckUpdates(false); };
@@ -183,7 +190,11 @@ namespace Nowcast
             foreach (var track in engine.Sessions)
             {
                 if (!seen.Add(track.Source.Name)) continue;
-                AddSource(track.Source.Name, track.App, !settings.Hides(track.App, track.Source.Name));
+                AddSource(track.Source.Name, track.App, settings.IsSourceEnabled(track.App, track.Source.Name));
+            }
+            foreach (var word in settings.Enabled)
+            {
+                if (seen.Add(word)) AddSource(word, word, true);
             }
             foreach (var word in settings.Hide)
             {
@@ -202,7 +213,7 @@ namespace Nowcast
             {
                 // From the file as it is now, so edits made by hand are kept.
                 var settings = Settings.Load();
-                settings.SetHidden(app, name, !item.Checked);
+                settings.SetSourceEnabled(app, name, item.Checked);
                 settings.Save();
             };
             sourcesItem.DropDownItems.Add(item);

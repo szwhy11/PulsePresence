@@ -23,6 +23,7 @@ namespace Nowcast
             Application.SetCompatibleTextRenderingDefault(false);
             ServicePointManager.SecurityProtocol |= SecurityProtocolType.Tls12;
 
+            bool isAutostart = args.Contains("--autostart") || args.Contains("--silent");
             bool isUpdate = args.Contains("--updated");
             Updater.CleanUp();
 
@@ -47,7 +48,7 @@ namespace Nowcast
             Startup.RefreshShellIcons();
             try
             {
-                Application.Run(new TrayApp(isUpdate));
+                Application.Run(new TrayApp(isUpdate, isAutostart));
             }
             finally
             {

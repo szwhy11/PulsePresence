@@ -228,7 +228,7 @@ namespace Nowcast
 
         bool IsHidden(Track track)
         {
-            return settings.Hides(track.App, track.Source.Name);
+            return track == null || track.Source == null || settings.Hides(track.App, track.Source.Name);
         }
 
         // When the track started, Unix ms; null when the app gives no length.

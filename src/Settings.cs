@@ -22,7 +22,13 @@ namespace Nowcast
         public bool UploadCovers = true;
         public bool Buttons = true;
         public bool CheckUpdates = true;
+        public static readonly string[] DefaultMusicSources = new[]
+        {
+            "Яндекс Музыка", "Yandex Music", "Spotify", "VK Музыка", "VK Music", "SoundCloud", "YouTube Music"
+        };
+
         public string Image = "";
+        public List<string> Enabled = new List<string>();
         public List<string> Hide = new List<string>();
         public Dictionary<string, string> Names = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
         public Dictionary<string, string> ClientIds = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
@@ -66,6 +72,7 @@ namespace Nowcast
                 "  \"buttons\": " + json.Serialize(Buttons),
                 "  \"checkUpdates\": " + json.Serialize(CheckUpdates),
                 "  \"image\": " + json.Serialize(Image),
+                "  \"enabled\": " + json.Serialize(Enabled),
                 "  \"hide\": " + json.Serialize(Hide),
                 "  \"names\": {" + string.Join(", ", names) + "}",
                 "  \"clientIds\": {" + string.Join(", ", cids) + "}",
@@ -74,30 +81,96 @@ namespace Nowcast
             File.WriteAllText(FilePath, "{\r\n" + string.Join(",\r\n", lines) + "\r\n}\r\n", new UTF8Encoding(false));
         }
 
-        // Whether a word in "hide" matches the app: by its ID or by the name shown.
-        public bool Hides(string app, string source)
+        // Checks whether a player/source is enabled.
+        // Default music players or explicitly enabled sources are ON.
+        // Any newly added or unknown player/source is OFF by default.
+        public bool IsSourceEnabled(string app, string source)
         {
+            if (string.IsNullOrEmpty(source)) return false;
+            string cleanApp = app ?? "";
+
+            // 1. Explicitly hidden?
             foreach (var word in Hide)
             {
-                if (app.IndexOf(word, StringComparison.OrdinalIgnoreCase) >= 0) return true;
+                if (cleanApp.IndexOf(word, StringComparison.OrdinalIgnoreCase) >= 0) return false;
+                if (source.IndexOf(word, StringComparison.OrdinalIgnoreCase) >= 0) return false;
+            }
+
+            // 2. Explicitly enabled by the user?
+            foreach (var word in Enabled)
+            {
+                if (cleanApp.IndexOf(word, StringComparison.OrdinalIgnoreCase) >= 0) return true;
                 if (source.IndexOf(word, StringComparison.OrdinalIgnoreCase) >= 0) return true;
             }
+
+            // 3. Known default music players are ON out of the box
+            foreach (var def in DefaultMusicSources)
+            {
+                if (source.IndexOf(def, StringComparison.OrdinalIgnoreCase) >= 0 ||
+                    cleanApp.IndexOf(def, StringComparison.OrdinalIgnoreCase) >= 0)
+                {
+                    return true;
+                }
+            }
+
+            // 4. Any newly discovered player/source (browsers, apps, raw IDs) is OFF by default!
             return false;
+        }
+
+        public bool Hides(string app, string source)
+        {
+            return !IsSourceEnabled(app, source);
+        }
+
+        public void SetSourceEnabled(string app, string source, bool isEnabled)
+        {
+            string cleanApp = app ?? "";
+            if (isEnabled)
+            {
+                Hide.RemoveAll(word =>
+                    cleanApp.IndexOf(word, StringComparison.OrdinalIgnoreCase) >= 0 ||
+                    source.IndexOf(word, StringComparison.OrdinalIgnoreCase) >= 0);
+
+                bool alreadyInEnabled = false;
+                foreach (var word in Enabled)
+                {
+                    if (source.Equals(word, StringComparison.OrdinalIgnoreCase))
+                    {
+                        alreadyInEnabled = true;
+                        break;
+                    }
+                }
+                if (!alreadyInEnabled)
+                {
+                    Enabled.Add(source);
+                }
+            }
+            else
+            {
+                Enabled.RemoveAll(word =>
+                    cleanApp.IndexOf(word, StringComparison.OrdinalIgnoreCase) >= 0 ||
+                    source.IndexOf(word, StringComparison.OrdinalIgnoreCase) >= 0);
+
+                bool alreadyInHide = false;
+                foreach (var word in Hide)
+                {
+                    if (source.Equals(word, StringComparison.OrdinalIgnoreCase))
+                    {
+                        alreadyInHide = true;
+                        break;
+                    }
+                }
+                if (!alreadyInHide)
+                {
+                    Hide.Add(source);
+                }
+            }
         }
 
         // Shows or hides a source, as the tray's Sources menu does.
         public void SetHidden(string app, string source, bool isHidden)
         {
-            if (isHidden)
-            {
-                if (!Hides(app, source)) Hide.Add(source);
-            }
-            else
-            {
-                Hide.RemoveAll(word =>
-                    app.IndexOf(word, StringComparison.OrdinalIgnoreCase) >= 0 ||
-                    source.IndexOf(word, StringComparison.OrdinalIgnoreCase) >= 0);
-            }
+            SetSourceEnabled(app, source, !isHidden);
         }
 
         void Apply(Dictionary<string, object> values)
@@ -117,6 +190,14 @@ namespace Nowcast
             CheckUpdates = Get(values, "checkUpdates", CheckUpdates);
             Image = Get<string>(values, "image") ?? Image;
 
+            var enabled = Get<ArrayList>(values, "enabled");
+            if (enabled != null)
+            {
+                foreach (var word in enabled)
+                {
+                    if (word is string && (string)word != "") Enabled.Add((string)word);
+                }
+            }
             var hide = Get<ArrayList>(values, "hide");
             if (hide != null)
             {

@@ -14,7 +14,7 @@ namespace Nowcast
 
         static string Command
         {
-            get { return "\"" + Application.ExecutablePath + "\""; }
+            get { return "\"" + Application.ExecutablePath + "\" --autostart"; }
         }
 
         public static bool IsEnabled

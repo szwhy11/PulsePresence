@@ -148,7 +148,7 @@ namespace Nowcast
                     hasAny = true;
                     var app = track.App;
                     var name = track.Source.Name;
-                    bool isShown = !settings.Hides(app, name);
+                    bool isShown = settings.IsSourceEnabled(app, name);
 
                     var toggle = new CheckBox
                     {
@@ -158,7 +158,27 @@ namespace Nowcast
                     };
                     toggle.Click += delegate
                     {
-                        Change(s => s.SetHidden(app, name, toggle.IsChecked != true));
+                        Change(s => s.SetSourceEnabled(app, name, toggle.IsChecked == true));
+                    };
+                    panelSources.Children.Add(toggle);
+                }
+            }
+
+            foreach (var word in settings.Enabled)
+            {
+                if (seen.Add(word))
+                {
+                    hasAny = true;
+                    var enabledName = word;
+                    var toggle = new CheckBox
+                    {
+                        Content = enabledName,
+                        IsChecked = true,
+                        Style = (Style)FindResource("ModernToggleStyle")
+                    };
+                    toggle.Click += delegate
+                    {
+                        Change(s => s.SetSourceEnabled(enabledName, enabledName, toggle.IsChecked == true));
                     };
                     panelSources.Children.Add(toggle);
                 }
@@ -178,7 +198,7 @@ namespace Nowcast
                     };
                     toggle.Click += delegate
                     {
-                        Change(s => s.SetHidden(hiddenName, hiddenName, toggle.IsChecked != true));
+                        Change(s => s.SetSourceEnabled(hiddenName, hiddenName, toggle.IsChecked == true));
                     };
                     panelSources.Children.Add(toggle);
                 }
@@ -286,9 +306,15 @@ namespace Nowcast
             {
                 foreach (var s in engine.Sessions)
                 {
-                    if (s.IsPlaying) { track = s; break; }
+                    if (s.IsPlaying && settings.IsSourceEnabled(s.App, s.Source != null ? s.Source.Name : "")) { track = s; break; }
                 }
-                if (track == null) track = engine.Sessions[0];
+                if (track == null)
+                {
+                    foreach (var s in engine.Sessions)
+                    {
+                        if (settings.IsSourceEnabled(s.App, s.Source != null ? s.Source.Name : "")) { track = s; break; }
+                    }
+                }
             }
 
             string title = track != null && !string.IsNullOrEmpty(track.Title) ? track.Title : Strings.PreviewSampleTitle;
